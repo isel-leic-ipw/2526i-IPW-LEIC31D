@@ -1,0 +1,181 @@
+
+let o = { }
+let o1 = new Object()
+
+
+// console.log(Object)
+console.log(o.constructor)
+console.log(o1.constructor)
+console.assert(Object === o.constructor)
+console.assert(Object === o1.constructor)
+
+let a = []
+let a1 = new Array()
+
+console.log(a.constructor)
+console.log(a1.constructor)
+console.assert(Array === a.constructor)
+console.assert(Array === a1.constructor)
+
+let f = function (a, b) { return a+b }
+let f1 = new Function("a", "b", "return a+b")
+console.log(f.constructor)
+
+// // console.log(Array.prototype)
+
+
+let s1 = "SLB"
+let s2 = new String("Benfica")
+
+// console.log(s1.constructor)
+// console.log(s2.constructor)
+
+// console.assert(String == s1.constructor)
+// console.assert(String === s2.constructor)
+
+// let add = function (a,b) { return a+b}
+// let add1 = new Function("a","b", "return a+b")
+
+
+// console.log(add.constructor)
+// console.log(add1.constructor)
+
+
+function Point(x, y) {
+  this.x = x
+  this.y = y
+  
+  // this.add = function (p) {
+  //   return new Point(this.x + p.x, this.y + p.y)
+  // }
+  console.log(this);
+}
+
+let p1 = new Point(2,3)
+
+let p2 = new Point(2,3)
+
+console.log(p1.constructor)
+
+Point.prototype.add = function (p) {
+   return new Point(this.x+p.x, this.y+p.y)
+}
+
+
+//let p2 = new Point(4,5)
+
+// // console.log(p1.constructor)
+// // console.log(p2.constructor)
+// // console.assert(Point === p1.constructor)
+// // console.assert(Point === p2.constructor)
+
+
+//let p3 = p1.add
+
+// // // console.log(`p3 = ${p3}`)
+
+
+// // //---------------------------------
+
+
+let s = new String("Glorioso");
+
+console.log("##" + s.enclose)
+console.log("##" + s.constructor)
+
+
+String.prototype.enclose = function () {
+   return `SLB ${this} SLB`
+}
+
+//let s3 = "SLB"
+
+console.log("###" + s.enclose)
+
+
+// console.log(s.enclose());
+// console.log(s3.enclose())
+
+
+// console.log("##" + s.substring(3,8))
+
+// String.prototype.substring = function (b, e) {
+//   return `Busted!!!!`
+// }
+
+// console.log("##" + s.substring(3,8))
+
+
+
+console.log("Sport".concat("Lisboa", "e", "Benfica"))  //  SportS.L.BLisboaS.L.Be.S.L.BBenfica
+
+// //Using a global variable to store the old implementation
+const oldConcat = String.prototype.concat
+String.prototype.concat = function (...args) {
+    const PREFIX = " S.L.B "
+    let newArgs = args.map(s => PREFIX + s)
+    return oldConcat.apply(PREFIX + this, newArgs)
+}
+  
+console.log("Sport".concat("Lisboa", "e", "Benfica"))  //  SportS.L.BLisboaS.L.Be.S.L.BBenfica
+  
+// // Storing the old implementation in String prototype
+// // String.prototype.oldConcat = String.prototype.concat;
+// // String.prototype.concat = function (...args) {
+// //     const PREFIX = " S.L.B "
+// //     args = args.map(s => PREFIX + s)
+// //     return this.oldConcat(args)
+// // }
+    
+  
+// // Using an anonymous function to create a closure capturing the old implementation reference
+
+// // (function () {
+// //     // Using a global variable to store the old implementation
+// //     const oldConcat = String.prototype.concat;
+// //     String.prototype.concat = function (...args) {
+// //         const PREFIX = " S.L.B "
+// //         args = args.map(s => PREFIX + s)
+// //         return oldConcat.apply(this, args)
+// //       }
+// // })()
+        
+        
+        
+// Creating a new scope to create a new closure
+// {
+//   // Using a global variable to store the old implementation
+//     let oldConcat = String.prototype.concat;
+//     String.prototype.concat = function (...args) {
+//         const PREFIX = " S.L.B "
+//         args = args.map(s => PREFIX + s)
+//         return oldConcat.apply(this, args)
+//       }
+// }
+
+// console.log("Sport".concat("Lisboa", "e", "Benfica"))  //  SportS.L.BLisboaS.L.Be.S.L.BBenfica
+
+// // console.log("---------")
+// // console.log(s.concat(s3, s3, s))
+
+// // // // The following clone throws an error indicating 'oldConcat' is not defined.
+// // // // Thats Good, because is what we wanted!!!
+// // console.log(oldConcat)
+            
+
+
+String.prototype.whoKnowsWhy = 10
+
+
+let s11 = "SLB"
+let s12 = "Benfica"
+
+console.log(s11.whoKnowsWhy)
+console.log(s12.whoKnowsWhy)
+
+s11.whoKnowsWhy = 20
+
+console.log(s11.whoKnowsWhy)
+console.log(s12.whoKnowsWhy)
+
+String.prototype.whoKnowsWhy = 30
