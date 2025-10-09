@@ -1,0 +1,34 @@
+{
+  "get": "teams",
+  "parameters": {
+    "id": "211"
+  },
+  "errors": [],
+  "results": 1,
+  "paging": {
+    "current": 1,
+    "total": 1
+  },
+  "response": [
+    {
+      "team": {
+        "id": 211,
+        "name": "Benfica",
+        "code": "BEN",
+        "country": "Portugal",
+        "founded": 1904,
+        "national": false,
+        "logo": "https:\/\/media.api-sports.io\/football\/teams\/211.png"
+      },
+      "venue": {
+        "id": 1265,
+        "name": "Est\u00e1dio do Sport Lisboa e Benfica (da Luz)",
+        "address": "Rua Jos\u00e9 Maria Nicolau",
+        "city": "Lisboa",
+        "capacity": 65647,
+        "surface": "grass",
+        "image": "https:\/\/media.api-sports.io\/football\/venues\/1265.png"
+      }
+    }
+  ]
+}
