@@ -1,0 +1,297 @@
+openapi: 3.0.1
+info:
+  title: Books API
+  description: This is a simple API for managing books
+  contact:
+    email: luis.falcao@isel.pt
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+  version: 1.0.0
+servers:
+  - description: Localhost server for testing API
+    url: http://localhost:1904
+
+security:
+  - bearerAuth: []
+tags:
+- name: Books
+- name: Users
+paths:
+  # /users:
+  #   description: The resource that contains all users
+  #   post:
+  #     tags:
+  #     - Users
+  #     summary: adds a user
+  #     description: Adds a user to the system
+  #     operationId: addUser
+  #     security: []
+  #     requestBody:
+  #       description: User to add
+  #       content:
+  #         application/json:
+  #           schema:
+  #             $ref: '#/components/schemas/NewUser'
+  #       required: true
+  #     responses:
+  #       201:
+  #         description: user created
+  #         content:
+  #           application/json:
+  #             schema:
+  #               required:
+  #               - token
+  #               type: object
+  #               properties:
+  #                 token:
+  #                   type: string
+  #                   format: uuid
+  #       400:
+  #         description: Invalid input, object invalid
+  #         content: {}
+  /api/books:
+    description: Resource that contains all Books
+    get:
+      tags:
+      - Books
+      summary: Get Books
+      description: By passing in the appropriate options, you can search for available
+        Books
+      operationId: getBooks
+      # parameters:
+      #   - name: q
+      #     in: query
+      #     description: Query to match in book title
+      #     schema: 
+      #       type: string
+      #     required: false
+      #   - name: limit
+      #     in: query
+      #     description: number of books to return
+      #     schema:
+      #       default: 30
+      #       minimum: 0
+      #       type: integer
+      #     required: false
+      #   - name: skip
+      #     in: query
+      #     description: The page number
+      #     schema:
+      #       minimum: 0
+      #       default: 0
+      #       type: integer
+      #     required: false
+      responses:
+        200:
+          description: get all books, with the specified criteria and pagination 
+          content:
+            application/json:
+              schema:
+                items:
+                  $ref: '#/components/schemas/Book'
+        400:
+          $ref: "#/components/responses/400BadRequest"          
+    post:
+      tags:
+      - Books
+      summary: adds a book
+      description: Adds a book to the system
+      operationId: addBook
+      security:
+        - bearerAuth: []
+      requestBody:
+        description: Book to add
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/NewBook'
+        required: true
+      responses:
+        201:
+          description: Book created
+          content: 
+            application/json:
+              schema:
+                $ref: '#/components/schemas/NewBookCreated'
+        400:
+          $ref: "#/components/responses/400BadRequest"
+  /api/books/{bookId}:
+    description: The resource that represents one Book
+    get:
+      tags:
+      - Books
+      summary: Get a book given its id
+      operationId: getBookById
+      security:
+        - bearerAuth: []
+      parameters:
+      - name: bookId
+        in: path
+        description: ID of book that to be fetched
+        required: true
+        schema:
+          type: integer
+          minimum: 1
+      responses:
+        200:
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Book'
+        400:
+          $ref: "#/components/responses/400BadRequest"
+        404:
+          $ref: "#/components/responses/404NotFound"                
+    put:
+      tags:
+      - Books
+      summary: updates a book
+      description: Updates a Book in the system
+      operationId: updateBook
+      parameters:
+      - name: bookId
+        in: path
+        description: ID of the book to be deleted
+        required: true
+        schema:
+          type: integer
+      requestBody:
+        description: Book to add
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/NewBook'
+        required: false
+      responses:
+        201:
+          description: book updated
+          content: 
+            application/json:
+              schema: 
+                type: object
+                properties: 
+                  message:
+                    type: string
+                    example: "Book with id 1 updated"
+
+
+
+        404:
+          $ref: "#/components/responses/404NotFound"  
+    delete:
+      tags:
+      - Books
+      summary: Delete a book by ID
+      description: Delete a book by ID
+      operationId: deleteBook
+      parameters:
+      - name: bookId
+        in: path
+        description: ID of the book to be deleted
+        required: true
+        schema:
+          type: integer
+      responses:
+        200:
+          description: "Book successfully deleted"
+          content: {}
+        400:
+          $ref: "#/components/responses/400BadRequest"
+        404:
+          $ref: "#/components/responses/404NotFound"
+components:
+  securitySchemes:
+    bearerAuth:            # arbitrary name for the security scheme
+      type: http
+      scheme: bearer
+  schemas:
+    NewBook:
+      required:
+      - title
+      - isbn
+      type: object
+      properties:
+        title:
+          type: string
+          example: Gatsby1
+        isbn:
+          type: string
+          example: 978-3-16-148410-0
+    Book:
+      allOf: 
+        - type: object
+        - $ref: "#/components/schemas/NewBook"
+          required:
+          - id
+          - ownerId
+          properties:
+            id:
+              type: integer
+              example: 1
+            ownerId:
+              type: integer
+              example: 1
+    NewUser:
+      type: object
+      required:
+      - userName
+      properties:
+        userName:
+          type: string
+          example: tomas.araujo
+    NewBookCreated:
+      required:
+      - status
+      - book
+      type: object
+      properties:
+        status:
+          type: string
+          example: Book with id 123 created with success
+        book:
+          $ref: '#/components/schemas/Book'
+    MissingParameter:
+      type: object
+      properties:
+        status: 
+          type: integer
+          example: 1
+        error:
+          type: string
+          example: "Missing required parameter"
+    InvalidBody:
+      type: object
+      properties:
+        error:
+          type: string
+          example: "Invalid body content"
+    NotFound: 
+      type: object
+      properties:
+        uri:
+          type: string
+          format: uri
+          example: "/books/1"
+        description:
+          type: string
+          example: "Book with id 1 not found"
+  responses: 
+    404NotFound:
+      description: "Resource not found"
+      content: 
+        application/json:
+          schema: 
+            $ref: "#/components/schemas/NotFound"
+    400BadRequest:
+      description: "Invalid Request because of a missing Parameter or invalid body content"
+      content: 
+        application/json:
+          schema: 
+            oneOf:
+              - $ref: "#/components/schemas/MissingParameter"
+              - $ref: "#/components/schemas/InvalidBody"
+              
+            
+      
