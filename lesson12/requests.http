@@ -1,0 +1,75 @@
+@prefix = http://localhost
+
+// resources
+// All Books: /books
+// One book:  /books/:id
+
+### GET - Gets all books
+# {
+#     books: [
+#         {
+#             uri: /books/1,
+#             title: "Book1"
+#             author: "Author1" 
+#         },
+#         {
+#             uri: /books/2,
+#             title: "Book2"
+#             author: "Author2" 
+#         },
+
+#     ]
+
+# }
+
+###
+GET http://www.isel.pt
+
+###
+GET {{prefix}}/books
+
+
+###
+// GET - get a single book
+GET {{prefix}}/books/1
+
+// DELETE - deletes a book
+DELETE {{prefix}}/books/1
+
+// PUT - Updates a book
+PUT {{prefix}}/books/1
+
+// POST - Creates a new Book
+POST {{prefix}}/books
+
+
+# Resource   | GET    | PUT    | POST   | DELETE | 
+# -----------|--------|--------|--------|--------|
+# /books/    |   x    |        |   x    |        |
+# -----------|--------|--------|--------|--------|
+# /books/1   |   x    |   x    |        |   x    |
+
+
+
+
+
+
+
+
+### Get the URI representation
+GET 
+
+
+PUT 
+
+
+POST 
+
+### Deletes the resource 
+DELETE 
+
+
+Create
+Read
+Update
+Delete
