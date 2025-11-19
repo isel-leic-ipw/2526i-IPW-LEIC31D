@@ -1,0 +1,6 @@
+//
+GET https://www.googleapis.com/auth/books
+
+###
+
+GET https://books.google.com/ebooks?id=buc0AAAAMAAJ&dq=holmes&as_brr=4&source=webstore_bookcard
