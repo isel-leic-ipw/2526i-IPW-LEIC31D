@@ -1,0 +1,17 @@
+
+<h1>Books for user {{username}}</h1>
+Create a <a href="./books/newBook">new book</a>
+<ul>
+  {{#each books}}
+    <li>
+      <h2><a href="./books/{{id}}">{{title}}</a></h2>
+      <p>{{isbn}}</p>
+      {{#if ../username}}
+        <form action="/books/{{id}}/delete" method="POST">
+          <input type="submit" value="Delete book" />
+        </form>
+      {{/if}}
+    </li>
+  {{/each}}
+</ul>
+
