@@ -1,0 +1,74 @@
+<html>
+    <head>
+        <title> Football Application</title>
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    </head>
+    <body>
+        <!--- Menu --->
+        <!--- <a href="/"> Home </a>--->
+        <a href="./home.html"> Home </a> 
+        <!--- <a href="/groups"> Groups </a> --->
+        <a href="./groupList.html"> Groups </a> 
+        <!--- <a href="/competitions"> Competitions </a> --->
+        <a href="./competitionsList.html"> Competitions </a>
+
+        <h1>Group Best Champions League 2023</h1>
+
+        <p><a href="#sporting">Sporting</a></p>
+        <p><a href="#benfica">Benfica</a></p>
+
+        <h1>Players</h1>
+
+        <div id="sporting">
+            <h2>Sporting</h2>
+            <table class="table table-dark table-striped" >
+                <tr>
+                    <th>Name</th>
+                    <th></th>
+                </tr>
+                <tr>
+                    <td>Jogador 1</td>
+                    <td>
+                        <form action="/groups/1/players/1" method="POST">
+                            <input type="submit" value="add">
+                        </form>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Jogador 2</td>
+                    <td>
+                        <form action="/groups/1/players/2" method="POST">
+                             <input type="submit" value="add">
+                        </form>
+                    </td>
+                </tr>
+            </table>
+        </div>
+        <div id="benfica">
+            <h2>Benfica</h2>
+            <table class="table" >
+                <tr>
+                    <th>Name</th>
+                    <th></th>
+                </tr>
+                <tr>
+                    <td>Jogador 1</td>
+                    <td>
+                        <form action="/groups/1/players/1" method="POST">
+                                <input type="submit" value="add">
+                        </form>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Jogador 2</td>
+                    <td>
+                        <form action="/groups/1/players/2" method="POST">
+                                <input type="submit" value="add">
+                        </form>
+                    </td>
+                </tr>
+            </table>
+        </div>
+            
+    </body>
+</html> 
