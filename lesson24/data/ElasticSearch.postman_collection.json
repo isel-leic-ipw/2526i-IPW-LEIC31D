@@ -1,0 +1,627 @@
+{
+	"info": {
+		"_postman_id": "65cd4de2-2016-4a6b-a160-16fd7c53983e",
+		"name": "ElasticSearch",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "462569"
+	},
+	"item": [
+		{
+			"name": "Admin",
+			"item": [
+				{
+					"name": "Disable High Disk Watermark",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"name": "Content-Type",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"persistent\": {\n    \"cluster\": {\n      \"routing\": {\n        \"allocation.disk.threshold_enabled\": false\n      }\n    }\n  }\n}"
+						},
+						"url": {
+							"raw": "http://{{host}}:{{port}}/_cluster/settings",
+							"protocol": "http",
+							"host": [
+								"{{host}}"
+							],
+							"port": "{{port}}",
+							"path": [
+								"_cluster",
+								"settings"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GET index settings",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"name": "Content-Type",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "http://{{host}}:{{port}}/b4/_settings",
+							"protocol": "http",
+							"host": [
+								"{{host}}"
+							],
+							"port": "{{port}}",
+							"path": [
+								"b4",
+								"_settings"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update index settings",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"name": "Content-Type",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"index\": {\n        \"blocks\": {\n            \"read_only_allow_delete\": \"false\"\n        }\n    }\n}"
+						},
+						"url": {
+							"raw": "http://{{host}}:{{port}}/b4/_settings",
+							"protocol": "http",
+							"host": [
+								"{{host}}"
+							],
+							"port": "{{port}}",
+							"path": [
+								"b4",
+								"_settings"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Main Endpoint",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": []
+				},
+				"url": {
+					"raw": "http://{{host}}:{{port}}/",
+					"protocol": "http",
+					"host": [
+						"{{host}}"
+					],
+					"port": "{{port}}",
+					"path": [
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Cluster Info",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://{{host}}:{{port}}/_cat/health?v",
+					"protocol": "http",
+					"host": [
+						"{{host}}"
+					],
+					"port": "{{port}}",
+					"path": [
+						"_cat",
+						"health"
+					],
+					"query": [
+						{
+							"key": "v",
+							"value": null
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete indice",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": []
+				},
+				"url": {
+					"raw": "http://{{host}}:{{port}}/users",
+					"protocol": "http",
+					"host": [
+						"{{host}}"
+					],
+					"port": "{{port}}",
+					"path": [
+						"users"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create Indice",
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/x-www-form-urlencoded",
+						"name": "Content-Type"
+					}
+				],
+				"body": {
+					"mode": "formdata",
+					"formdata": []
+				},
+				"url": {
+					"raw": "http://{{host}}:{{port}}/tasks",
+					"protocol": "http",
+					"host": [
+						"{{host}}"
+					],
+					"port": "{{port}}",
+					"path": [
+						"tasks"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create a document with PUT",
+			"protocolProfileBehavior": {
+				"disabledSystemHeaders": {
+					"content-type": true
+				}
+			},
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"title\": \"Task2\",\n    \"diration\": \"Task 2 description\"\n}"
+				},
+				"url": {
+					"raw": "http://{{host}}:{{port}}/tasks/_doc/slb",
+					"protocol": "http",
+					"host": [
+						"{{host}}"
+					],
+					"port": "{{port}}",
+					"path": [
+						"tasks",
+						"_doc",
+						"slb"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "List indices Cat",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/x-www-form-urlencoded",
+						"name": "Content-Type"
+					}
+				],
+				"body": {
+					"mode": "formdata",
+					"formdata": []
+				},
+				"url": {
+					"raw": "http://{{host}}:{{port}}/_cat/indices?v",
+					"protocol": "http",
+					"host": [
+						"{{host}}"
+					],
+					"port": "{{port}}",
+					"path": [
+						"_cat",
+						"indices"
+					],
+					"query": [
+						{
+							"key": "v",
+							"value": null
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "List indices Json",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/x-www-form-urlencoded",
+						"name": "Content-Type"
+					}
+				],
+				"url": {
+					"raw": "http://{{host}}:{{port}}/_all",
+					"protocol": "http",
+					"host": [
+						"{{host}}"
+					],
+					"port": "{{port}}",
+					"path": [
+						"_all"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "List all indice documents",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://{{host}}:{{port}}/tasks/_search",
+					"protocol": "http",
+					"host": [
+						"{{host}}"
+					],
+					"port": "{{port}}",
+					"path": [
+						"tasks",
+						"_search"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create a document with POST",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"title\": \"Task 6\",\n    \"description\": \"Task description\",\n    \"userId\": 2\n}"
+				},
+				"url": {
+					"raw": "http://{{host}}:{{port}}/tasks/_doc",
+					"protocol": "http",
+					"host": [
+						"{{host}}"
+					],
+					"port": "{{port}}",
+					"path": [
+						"tasks",
+						"_doc"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "DELETE document",
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"url": {
+					"raw": "http://{{host}}:{{port}}/tasks/_doc/slb",
+					"protocol": "http",
+					"host": [
+						"{{host}}"
+					],
+					"port": "{{port}}",
+					"path": [
+						"tasks",
+						"_doc",
+						"slb"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GET indice",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": []
+				},
+				"url": {
+					"raw": "http://{{host}}:{{port}}/movies/_search",
+					"protocol": "http",
+					"host": [
+						"{{host}}"
+					],
+					"port": "{{port}}",
+					"path": [
+						"movies",
+						"_search"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Bulk Insert",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/x-ndjson"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\"index\":{\"_id\":\"t1\"}}\n{\"id\":1,\"title\":\"The Declaration of Independence of the United States of America\",\"authors\":[\"Jefferson, Thomas\"],\"subjects\":[\"United States. Declaration of Independence\",\"United States -- History -- Revolution, 1775-1783 -- Sources\"],\"lcc\":\"E201JK\"}\n{\"index\":{\"_id\":\"t2\"}}\n{\"id\":2,\"title\":\"The King James Version of the Bible\",\"authors\":[],\"subjects\":[\"Bible\"],\"lcc\":\"BS\"}\n"
+				},
+				"url": {
+					"raw": "http://{{host}}:{{port}}/books/_bulk",
+					"protocol": "http",
+					"host": [
+						"{{host}}"
+					],
+					"port": "{{port}}",
+					"path": [
+						"books",
+						"_bulk"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Search with criterias",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"url": {
+					"raw": "http://{{host}}:{{port}}/tasks/_search?q=userId:2",
+					"protocol": "http",
+					"host": [
+						"{{host}}"
+					],
+					"port": "{{port}}",
+					"path": [
+						"tasks",
+						"_search"
+					],
+					"query": [
+						{
+							"key": "q",
+							"value": "userId:2"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get a document",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"url": {
+					"raw": "http://{{host}}:{{port}}/tasks/_doc/Q8YUEoUB5bIhzWSzyGOU",
+					"protocol": "http",
+					"host": [
+						"{{host}}"
+					],
+					"port": "{{port}}",
+					"path": [
+						"tasks",
+						"_doc",
+						"Q8YUEoUB5bIhzWSzyGOU"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Search with Body Search",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"query\" : { \n        \"bool\": { \n        \"must\": [\n            { \"match\": { \"value\":   \"people\"}}\n        ]}\n    }\n}"
+				},
+				"url": {
+					"raw": "http://{{host}}:{{port}}/tasks/_search",
+					"protocol": "http",
+					"host": [
+						"{{host}}"
+					],
+					"port": "{{port}}",
+					"path": [
+						"tasks",
+						"_search"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Search Suggestions",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n      \"size\": 0,\n      \"suggest\": {\n        \"suggestions\": {\n          \"text\": \"lipman\",\n          \"term\": {\n            \"field\": \"authors\",\n            \"suggest_mode\": \"always\"\n          }\n        }\n      }\n }"
+				},
+				"url": {
+					"raw": "http://{{host}}:{{port}}/books/_search",
+					"protocol": "http",
+					"host": [
+						"{{host}}"
+					],
+					"port": "{{port}}",
+					"path": [
+						"books",
+						"_search"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "List all with filtering",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"query\" : {\n      \"term\" : { \"userId\" : 1 }\n  }\n}"
+				},
+				"url": {
+					"raw": "http://{{host}}:{{port}}/tasks/_search",
+					"protocol": "http",
+					"host": [
+						"{{host}}"
+					],
+					"port": "{{port}}",
+					"path": [
+						"tasks",
+						"_search"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Bulk Insert1",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/x-ndjson"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\"index\":{\"_id\":\"wEmndQnfS3-8EAGrRTHrTA\"}}\n{\"categories\": [\"explicit\"], \"created_at\": \"2020-01-05 13:42:18.823766\", \"icon_url\": \"https://assets.chucknorris.host/img/avatar/chuck-norris.png\",\"id\": \"wEmndQnfS3-8EAGrRTHrTA\", \"updated_at\": \"2020-01-05 13:42:18.823766\", \"url\": \"https://api.chucknorris.io/jokes/wEmndQnfS3-8EAGrRTHrTA\", \"value\": \"If he wanted to, Chuck Norris could give himself a barium enema with his own dick.\" }\n"
+				},
+				"url": {
+					"raw": "http://{{host}}:{{port}}/jokes/_bulk",
+					"protocol": "http",
+					"host": [
+						"{{host}}"
+					],
+					"port": "{{port}}",
+					"path": [
+						"jokes",
+						"_bulk"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

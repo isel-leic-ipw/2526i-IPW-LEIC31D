@@ -1,0 +1,75 @@
+@host = localhost
+@port = 9200
+
+
+###
+
+GET http://{{host}}:{{port}}
+
+
+##### Admin requests
+
+## Get all indices (cat)
+http://{{host}}:{{port}}/_cat/indices?v
+
+### Get all indices JSON
+http://{{host}}:{{port}}/_all
+
+
+########### Index operations
+
+
+### Create index books
+PUT http://{{host}}:{{port}}/books
+
+
+### Delete index books
+DELETE http://{{host}}:{{port}}/books
+
+
+########### Document operations
+
+### Create document using POST
+POST http://{{host}}:{{port}}/books/_doc
+Content-Type: application/json
+
+{
+    "title": "Book6",
+    "isbn": 6666666,
+    "ownerId": 1    
+}
+
+### Create document using PUT
+PUT http://{{host}}:{{port}}/books/_doc/slb
+Content-Type: application/json
+
+{
+    "title": "BookSLB",
+    "isbn": 1904,
+    "ownerId": 1    
+}
+
+
+### Get all index documents
+
+GET http://{{host}}:{{port}}/books/_search
+
+
+
+### Delete a document
+
+DELETE http://{{host}}:{{port}}/books/_doc/NEI_UJMB7XEYplQ2CwhG
+
+### Change document using PUT
+PUT http://{{host}}:{{port}}/books/_doc/NEI_UJMB7XEYplQ2CwhG
+Content-Type: application/json
+
+{
+    "title": "BookSLB1",
+    "isbn": 1904,
+    "ownerId": 1    
+}
+
+
+### GET a document
+GET http://{{host}}:{{port}}/books/_doc/NEI_UJMB7XEYplQ2CwhG
